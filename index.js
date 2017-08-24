@@ -73,6 +73,6 @@ if (!args['skip-small']) {
 
 let finished = () => {
     // anchor vol so it doesn't garbage collect
-    vol.Sqlite( "finshed.db" );
+    if( vol ) vol.Sqlite( "finshed.db" );
     console.log( "done?" );
 }
