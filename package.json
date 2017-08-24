@@ -1,0 +1,17 @@
+{
+  "name": "adapter-perf",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "gun": "^0.8.3",
+    "gun-db": "^1.0.563",
+    "gun-file": "^1.0.111",
+    "minimist": "^1.2.0"
+  }
+}
