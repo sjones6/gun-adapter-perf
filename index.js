@@ -57,22 +57,29 @@ let runMedium = () => {
 
 let runLarge = () => {
     if (!args['skip-large']) {
+console.log( "..." );
         let large = new Profiler("__ Large Nodes: 10000 Properties Each __", getLargeNode(), 10);
+console.log( "..." );
         large.run(finished);
+console.log( "..." );
     } else {
         finished();
     }
 }
 
+runLarge();
+/*
 if (!args['skip-small']) {
     let small = new Profiler("__ Small Nodes: 10 Properties Each __ ", getSmallNode(), 10000);
     small.run(runMedium);
 } else {
     runMedium();
 }
+*/
 
-let finished = () => {
+var finished = () => {
     // anchor vol so it doesn't garbage collect
+console.log( "Finish?")
     if( vol ) vol.Sqlite( "finshed.db" );
     console.log( "done?" );
 }

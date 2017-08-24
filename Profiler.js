@@ -30,8 +30,8 @@ let sequence = function(target, node, allDone) {
             'file-name': 'yourData.json',
             'file-pretty': false,
             'file-delay': 500,
-            //db: { file:"gun.db" }
-            db: { file:"$sack@Mount$gun.db" }
+            db: { file:"gun.db" }
+            //db: { file:"$sack@Mount$gun.db" }
         });
         run(__gun);
     }
