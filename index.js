@@ -1,4 +1,4 @@
-
+Error.stackTraceLimit = Infinity;
 var parseArgs = require('minimist');
 var args = parseArgs(process.argv);
 const Profiler = require('./Profiler');
@@ -6,6 +6,8 @@ const Profiler = require('./Profiler');
 global.Gun = require('gun/gun');
 
 require('gun-db');
+//var vfs = require('sack.vfs' );
+//var vol = vfs.Volume( "Mount", "data.vfs" );
 //require('gun-file');
 
 let getSmallNode = function() {
@@ -46,7 +48,7 @@ let getLargeNode = function() {
 
 let runMedium = () => {
     if (!args['skip-medium']) {
-        let medium = new Profiler("__ Medium Nodes: 1000 Properties Each __", getMediumNode(), 1000);
+        let medium = new Profiler("__ Medium Nodes: 1000 Properties Each __", getMediumNode(), 100);
         medium.run(runLarge);
     } else {
         runLarge();
@@ -55,7 +57,7 @@ let runMedium = () => {
 
 let runLarge = () => {
     if (!args['skip-large']) {
-        let large = new Profiler("__ Large Nodes: 10000 Properties Each __", getLargeNode(), 100);
+        let large = new Profiler("__ Large Nodes: 10000 Properties Each __", getLargeNode(), 10);
         large.run(finished);
     } else {
         finished();
@@ -67,4 +69,10 @@ if (!args['skip-small']) {
     small.run(runMedium);
 } else {
     runMedium();
+}
+
+let finished = () => {
+    // anchor vol so it doesn't garbage collect
+    vol.Sqlite( "finshed.db" );
+    console.log( "done?" );
 }
