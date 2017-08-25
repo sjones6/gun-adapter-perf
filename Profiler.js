@@ -7,13 +7,15 @@ let keyChain = {};
 let __gun;
 
 let recurse = (target, callback, done) => {
-    callback(target, () => {
-        if (target === 0) {
-            done();
-        } else {
-            target--;
-            recurse(target, callback, done);
-        }
+    setImmediate( ()=>{
+        callback(target, () => {
+            if (target === 0) {
+                done();
+            } else {
+                target--;
+                recurse(target, callback, done);
+            }
+        }); 
     });
 };
 
@@ -27,7 +29,9 @@ let sequence = function(target, node, allDone) {
         __gun = new Gun({
             'file-name': 'yourData.json',
             'file-pretty': false,
-            'file-delay': 1,
+            'file-delay': 500,
+            db: { file:"gun.db" }
+            //db: { file:"$sack@Mount$gun.db" }
         });
         run(__gun);
     }
@@ -39,7 +43,7 @@ let sequence = function(target, node, allDone) {
                 target,
                 (i, next) => {
                     $gun.get(ring.make(i)).put(node, at => {
-                        console.log(i);
+                        if( i % 100 == 0 )console.log(i);
                         res.ack(at);
                         next();
                     });
